@@ -24,7 +24,7 @@ def help(bot, update):
 
 
 def echo(bot, update):
-    response = requests.get('https://en.wikipedia.org/w/api.php?action=opensearch&search='+update.message.text+'&limit=1&namespace=0&format=json')
+    response = requests.get('https://en.wikipedia.org/w/api.php?action=opensearch&search=president&limit=1&namespace=0&format=json')
     json_data = json.loads(response.text)
     update.message.reply_text(json_data)
 
