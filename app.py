@@ -4,7 +4,7 @@ from threading import Thread
 from telegram import Bot
 from telegram.ext import Dispatcher, CommandHandler, MessageHandler, Updater, Filters
 import json
-import urllib2
+#import urllib2
 
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -25,9 +25,9 @@ def help(bot, update):
 
 
 def echo(bot, update):
-    response = urllib2.urlopen('https://en.wikipedia.org/w/api.php?action=opensearch&search=president&limit=1&namespace=0&format=json')
+    #response = urllib2.urlopen('https://en.wikipedia.org/w/api.php?action=opensearch&search=president&limit=1&namespace=0&format=json')
     #response = requests.get('https://en.wikipedia.org/w/api.php?action=opensearch&search=president&limit=1&namespace=0&format=json')
-    json_data = json.loads(response.text)
+    #json_data = json.loads(response.text)
     update.message.reply_text('json_data')
 
 def error(bot, update, error):
