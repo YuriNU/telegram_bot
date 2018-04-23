@@ -26,10 +26,7 @@ def help(bot, update):
 def echo(bot, update):
     response = requests.get('https://en.wikipedia.org/w/api.php?action=opensearch&search='+update.message.text+'&limit=1&namespace=0&format=json')
     json_data = json.loads(response.text)
-    for i in range(len(json_data)):
-    #There is state is field of database
-      re=re.append(print(json_data[i]))
-    update.message.reply_text(re)
+    update.message.reply_text(json_data)
 
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
