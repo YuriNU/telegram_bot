@@ -3,11 +3,16 @@ from queue import Queue
 from threading import Thread
 from telegram import Bot
 from telegram.ext import Dispatcher, CommandHandler, MessageHandler, Updater, Filters
+import json
+import requests
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 logger = logging.getLogger(__name__)
 TOKEN = '523900080:AAEKgGT4C7M2V4VQ7uWqP7TAB8HzwQJg-jI'
+
+
+
 
 
 def start(bot, update):
@@ -19,8 +24,12 @@ def help(bot, update):
 
 
 def echo(bot, update):
-    update.message.reply_text(update.message.text)
-
+    response = requests.get('https://en.wikipedia.org/w/api.php?action=opensearch&search='+update.message.text+'&limit=1&namespace=0&format=json')
+    json_data = json.loads(response.text)
+    for i in range(len(json_data)):
+    #There is state is field of database
+      re=re.append(print(json_data[i]))
+    update.message.reply_text(re)
 
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
