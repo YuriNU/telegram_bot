@@ -11,7 +11,7 @@ TOKEN = '523900080:AAEKgGT4C7M2V4VQ7uWqP7TAB8HzwQJg-jI'
 
 
 def start(bot, update):
-    update.message.reply_text('welcome MESSAGE')
+    update.message.reply_text('welcome to wiki guide bot!')
 
 
 def help(bot, update):
