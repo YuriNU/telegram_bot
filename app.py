@@ -30,8 +30,8 @@ def echo(bot, update):
     url_wiki='https://en.wikipedia.org/w/api.php?action=opensearch&search='+update.message.text+'&limit=1&namespace=0&format=json'
     response = requests.get(url_wiki)
     json_data = json.loads(response.text)
-    reference_text=json_data[2][0]
-    refrence_url=json_data[3][0]
+    reference_text=json_data[2,0]
+    refrence_url=json_data[3,0]
     update.message.reply_text(reference_text)
     update.message.reply_text(refrence_url)
     update.message.reply_text(json_data)
