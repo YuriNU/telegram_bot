@@ -18,11 +18,11 @@ TOKEN = '523900080:AAEKgGT4C7M2V4VQ7uWqP7TAB8HzwQJg-jI'
 
 
 def start(bot, update):
-    update.message.reply_text('welcome to wiki guide bot!')
+    update.message.reply_text('Welcome to Wiki Guide Bot!')
 
 
 def help(bot, update):
-    update.message.reply_text('help message')
+    update.message.reply_text('Type a word to see wiki article')
 
 
 def echo(bot, update):
@@ -30,8 +30,8 @@ def echo(bot, update):
     url_wiki='https://en.wikipedia.org/w/api.php?action=opensearch&search='+update.message.text+'&limit=1&namespace=0&format=json'
     response = requests.get(url_wiki)
     json_data = json.loads(response.text)
-    reference_text=json_data[2,0]
-    refrence_url=json_data[3,0]
+    reference_text=json_data[2]
+    refrence_url=json_data[3]
     update.message.reply_text(reference_text)
     update.message.reply_text(refrence_url)
     update.message.reply_text(json_data)
