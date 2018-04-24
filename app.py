@@ -26,11 +26,11 @@ def help(bot, update):
 
 
 def echo(bot, update):
-    #response = urllib2.urlopen('https://en.wikipedia.org/w/api.php?action=opensearch&search=president&limit=1&namespace=0&format=json')
-    url_wiki='https://en.wikipedia.org/w/api.php?action=opensearch&search='+update.message.text+'&limit=1&namespace=0&format=json'
+    url_wiki='https://en.wikipedia.org/w/api.php?format=jsonfm&action=query&prop=extracts&exsentences=5&exlimit=3&exintro=&explaintext=&titles='+update.message.text
     response = requests.get(url_wiki)
     json_data = json.loads(response.text)
-    reference_text=json_data[2]
+    reference_text=json_data["query"]["pages"][0]["extract"]
+
     refrence_url=json_data[3]
     update.message.reply_text(reference_text)
     update.message.reply_text(refrence_url)
