@@ -30,6 +30,7 @@ def echo(bot, update):
     url_wiki='https://en.wikipedia.org/w/api.php?action=opensearch&search='+update.message.text+'&limit=1&namespace=0&format=json'
     response = requests.get(url_wiki)
     json_data = json.loads(response.text)
+    refrence_url=json_data[3]
     update.message.reply_text(json_data)
 
 def error(bot, update, error):
