@@ -56,7 +56,7 @@ def get_page_url(page_id):
     page_url_t='https://en.wikipedia.org/w/api.php?action=query&prop=info&pageids='+str(page_id)+'&inprop=url&format=json'
     response_t = requests.get(page_url_t)
     json_data_t = json.loads(response_t.text)
-    return json_data_t["query"]["pages"][0]["fullurl"]
+    return json_data_t["query"]["pages"][str(page_id)]["fullurl"]
 # Write your handlers here
 
 
