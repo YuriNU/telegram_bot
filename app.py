@@ -53,7 +53,7 @@ def echo(bot, update):
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
 def get_page_url(page_id):
-    page_url_t='https://en.wikipedia.org/w/api.php?action=query&prop=info&pageids='+str(page_id)+'&inprop=url'
+    page_url_t='https://en.wikipedia.org/w/api.php?action=query&prop=info&pageids='+str(page_id)+'&inprop=url&format=json'
     response_t = requests.get(page_url_t)
     json_data_t = json.loads(response_t.text)
     return json_data_t["query"]["pages"]["fullurl"]
