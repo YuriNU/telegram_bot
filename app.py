@@ -26,6 +26,7 @@ def help(bot, update):
 
 
 def echo(bot, update):
+    chat_id = bot.get_updates()[-1].message.chat_id
     message_text=update.message.text
     url_wiki='https://en.wikipedia.org/w/api.php?action=opensearch&search='+message_text+'&limit=1&namespace=0&format=json'
     response = requests.get(url_wiki)
@@ -46,10 +47,10 @@ def echo(bot, update):
       page_list.append({'title':json_data["query"]["search"][i]["title"],'pageid':json_data["query"]["search"][i]["pageid"]})
       page_list[i]['url']=get_page_url(page_list[i]['pageid'])
       page_list[i]['snippet']=json_data["query"]["search"][i]["snippet"]
+    bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'], reply_markup=reply_markup,parse_mode=telegram.ParseMode.HTML)
     update.message.reply_text(page_list[0]['url'])
-    update.message.reply_text(page_list[0]['snippet'])
-    update.message.reply_text(page_list[1]['title'])
-    update.message.reply_text(page_list[2]['title'])
+    for i in range(ref_num-1):
+      update.message.reply_text(page_list[i+1]['title'])
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
 def get_page_url(page_id):
