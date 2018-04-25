@@ -32,22 +32,31 @@ def echo(bot, update):
     json_data = json.loads(response.text)
     reference_text=json_data[2]
     refrence_url=json_data[3]
-    update.message.reply_text(reference_text)
-    update.message.reply_text(refrence_url)
+    #update.message.reply_text(reference_text)
+    #update.message.reply_text(refrence_url)
     #update.message.reply_text(json_data)
     
     url_srsearch='https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch='+message_text+'&srwhat=text&continue=&format=json'
     response = requests.get(url_srsearch)
     json_data = json.loads(response.text)
-    update.message.reply_text('-----------------------------------')
-    update.message.reply_text(json_data["query"]["search"][0]["pageid"])
-    update.message.reply_text(json_data["query"]["search"][0]["title"])
-    update.message.reply_text(json_data["query"]["search"][0]["snippet"])
-    update.message.reply_text(json_data["query"]["search"][1]["title"])
-    update.message.reply_text(json_data["query"]["search"][2]["title"])
+    #update.message.reply_text('-----------------------------------')
+    page_list=list()
+    ref_num=min(len(json_data["query"]["search"]),4)
+    for i in range(ref_num):
+      page_list.append({'title':json_data["query"]["search"][i]["title"],'pageid':json_data["query"]["search"][i]["pageid"]})
+      page_list[i]['url']=get_page_url(page_list[i]['pageid'])
+      page_list[i]['snippet']=json_data["query"]["search"][i]["snippet"]
+    update.message.reply_text(page_list[0]['url'])
+    update.message.reply_text(page_list[0]['snippet'])
+    update.message.reply_text(page_list[1]['title'])
+    update.message.reply_text(page_list[2]['title'])
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
-
+def get_page_url(page_id):
+    page_url_t='https://en.wikipedia.org/w/api.php?action=query&prop=info&pageids='+page_id+'&inprop=url'
+    response_t = requests.get(page_url_t)
+    json_data_t = json.loads(response_t.text)
+    return json_data_t["query"]["pages"][0]["fullurl"]
 # Write your handlers here
 
 
