@@ -35,9 +35,9 @@ def echo(bot, update):
     update.message.reply_text(refrence_url)
     #update.message.reply_text(json_data)
     
-    #url_srsearch='https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch='+update.message.text+'&srwhat=text&continue='
-    #response = requests.get(url_srsearch)
-    #json_data = json.loads(response.text)
+    url_srsearch='https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch='+update.message.text+'&srwhat=text&continue='
+    response = requests.get(url_srsearch)
+    json_data = json.loads(response.text)
     update.message.reply_text('srsearch')
     update.message.reply_text(json_data["query"]["search"][0]["pageid"])
     update.message.reply_text(json_data["query"]["search"][0]["title"])
