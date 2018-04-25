@@ -26,7 +26,7 @@ def help(bot, update):
 
 
 def echo(bot, update):
-    chat_id = bot.get_updates()[-1].message.chat_id
+    chat_id = update.message.chat_id
     message_text=update.message.text
     url_wiki='https://en.wikipedia.org/w/api.php?action=opensearch&search='+message_text+'&limit=1&namespace=0&format=json'
     response = requests.get(url_wiki)
