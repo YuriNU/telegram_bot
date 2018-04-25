@@ -26,7 +26,8 @@ def help(bot, update):
 
 
 def echo(bot, update):
-    url_wiki='https://en.wikipedia.org/w/api.php?action=opensearch&search='+update.message.text+'&limit=1&namespace=0&format=json'
+    message_text=update.message.text
+    url_wiki='https://en.wikipedia.org/w/api.php?action=opensearch&search='+message_text+'&limit=1&namespace=0&format=json'
     response = requests.get(url_wiki)
     json_data = json.loads(response.text)
     reference_text=json_data[2]
@@ -35,7 +36,7 @@ def echo(bot, update):
     update.message.reply_text(refrence_url)
     #update.message.reply_text(json_data)
     
-    url_srsearch='https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch='+update.message.text+'&srwhat=text&continue='
+    url_srsearch='https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch='+message_text+'&srwhat=text&continue='
     response = requests.get(url_srsearch)
     json_data = json.loads(response.text)
     update.message.reply_text('srsearch')
