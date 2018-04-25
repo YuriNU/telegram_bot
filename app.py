@@ -1,8 +1,8 @@
 import logging
 from queue import Queue
 from threading import Thread
-from telegram import Bot
-from telegram.ext import Dispatcher, CommandHandler, MessageHandler, Updater, Filters,KeyboardButton,ReplyKeyboardMarkup
+from telegram import Bot,KeyboardButton,ReplyKeyboardMarkup
+from telegram.ext import Dispatcher, CommandHandler, MessageHandler, Updater, Filters
 import json
 import requests
 
