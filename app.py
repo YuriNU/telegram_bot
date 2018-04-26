@@ -47,12 +47,8 @@ def echo(bot, update):
       page_list.append({'title':json_data["query"]["search"][i]["title"],'pageid':json_data["query"]["search"][i]["pageid"]})
       page_list[i]['url']=get_page_url(page_list[i]['pageid'])
       page_list[i]['snippet']=json_data["query"]["search"][i]["snippet"]
-    location_keyboard = telegram.KeyboardButton(text="send_location", request_location=True)
-    contact_keyboard = telegram.KeyboardButton(text="send_contact", request_contact=True)
-    custom_keyboard = [[ location_keyboard, contact_keyboard ]]
 
-    reply_markup = telegram.ReplyKeyboardMarkup(custom_keyboard)
-    bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'], reply_markup=reply_markup,parse_mode=telegram.ParseMode.HTML)
+    bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'],parse_mode=telegram.ParseMode.HTML)
     update.message.reply_text(page_list[0]['url'])
     for i in range(ref_num-1):
       update.message.reply_text(page_list[i+1]['title'])
