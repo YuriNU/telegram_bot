@@ -48,11 +48,10 @@ def echo(bot, update):
       page_list[i]['url']=get_page_url(page_list[i]['pageid'])
       page_list[i]['snippet']=json_data["query"]["search"][i]["snippet"]
       
-    reply_markup = ReplyKeyboardMarkup([[page_list[1]['title']], [page_list[2]['title']],[page_list[3]['title']]],resize_keyboard=True)
+    reply_markup = ReplyKeyboardMarkup([[page_list[i+1]['title']] for i in range(ref_num-1)],resize_keyboard=True)
     bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'], reply_markup=reply_markup)
     update.message.reply_text(page_list[0]['url'])
-    for i in range(ref_num-1):
-      update.message.reply_text(page_list[i+1]['title'])
+    
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
 def get_page_url(page_id):
