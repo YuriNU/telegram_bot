@@ -47,8 +47,9 @@ def echo(bot, update):
       page_list.append({'title':json_data["query"]["search"][i]["title"],'pageid':json_data["query"]["search"][i]["pageid"]})
       page_list[i]['url']=get_page_url(page_list[i]['pageid'])
       page_list[i]['snippet']=json_data["query"]["search"][i]["snippet"]
-
-    bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'])
+      
+    reply_markup = telegram.ReplyKeyboardMarkup([["Yes", "No"]])
+    bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'], reply_markup=reply_markup)
     update.message.reply_text(page_list[0]['url'])
     for i in range(ref_num-1):
       update.message.reply_text(page_list[i+1]['title'])
