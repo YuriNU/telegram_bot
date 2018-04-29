@@ -25,6 +25,7 @@ def help(bot, update):
     update.message.reply_text('Type a word to see wiki article')
 
 def back(bot, update):
+    chat_id = update.message.chat_id
     keyboard_buttons=[[hist[i]] for i in range(min(len(hist),10))]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
     bot.send_message(chat_id=chat_id, text='последние 10 страниц', reply_markup=reply_markup)
