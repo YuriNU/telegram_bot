@@ -51,7 +51,7 @@ def echo(bot, update):
       page_list.append({'title':json_data["query"]["search"][i]["title"],'pageid':json_data["query"]["search"][i]["pageid"]})
       page_list[i]['url']=get_page_url(page_list[i]['pageid'])
       page_list[i]['snippet']=json_data["query"]["search"][i]["snippet"]
-    hist().append(page_list[0]['title'])  
+    hist.append(page_list[0]['title'])  
     keyboard_buttons=[[page_list[i+1]['title']] for i in range(ref_num-1)]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons.append(['/back']),resize_keyboard=True)
     bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'], reply_markup=reply_markup)
