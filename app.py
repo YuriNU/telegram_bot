@@ -72,7 +72,7 @@ def setup(webhook_url=None):
         update_queue = Queue()
         dp = Dispatcher(bot, update_queue)
     else:
-        updater = Updater(TOKEN)
+        updater = Updater(TOKEN, request_kwargs={'read_timeout': 6, 'connect_timeout': 7})
         bot = updater.bot
         dp = updater.dispatcher
         dp.add_handler(CommandHandler("start", start))
@@ -92,6 +92,8 @@ def setup(webhook_url=None):
         thread.start()
         return update_queue, bot
     else:
+        try:
+          
         bot.set_webhook()  # Delete webhook
         updater.start_polling()
         updater.idle()
