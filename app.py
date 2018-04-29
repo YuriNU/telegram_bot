@@ -24,8 +24,8 @@ def start(bot, update):
 def help(bot, update):
     update.message.reply_text('Type a word to see wiki article')
 
-#def back(bot, update):
-#    update.message.reply_text('Type a word to see wiki article')
+def back(bot, update):
+    update.message.reply_text('Type a word to see wiki article')
 
 def echo(bot, update):
     chat_id = update.message.chat_id
@@ -77,7 +77,7 @@ def setup(webhook_url=None):
         dp = updater.dispatcher
         dp.add_handler(CommandHandler("start", start))
         dp.add_handler(CommandHandler("help", help))
-        #dp.add_handler(CommandHandler("back", back))
+        dp.add_handler(CommandHandler("back", back))
        
 
         # on noncommand i.e message - echo the message on Telegram
@@ -93,10 +93,12 @@ def setup(webhook_url=None):
         return update_queue, bot
     else:
         try:
-          
-        bot.set_webhook()  # Delete webhook
-        updater.start_polling()
-        updater.idle()
+          bot.set_webhook()  # Delete webhook
+          updater.start_polling()
+          updater.idle()
+        except Exception:
+          print("Could not convert data to an integer.")
+
 
 
 if __name__ == '__main__':
