@@ -25,7 +25,7 @@ def help(bot, update):
     update.message.reply_text('Type a word to see wiki article')
 
 def back(bot, update):
-    keyboard_buttons=[[hist[i]['title']]] for i in range(min(len(hist),10))]
+    keyboard_buttons=[[hist[i]['title']] for i in range(min(len(hist),10))]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
     bot.send_message(chat_id=chat_id, text='последние 10 страниц', reply_markup=reply_markup)
 
@@ -52,8 +52,8 @@ def echo(bot, update):
       page_list[i]['url']=get_page_url(page_list[i]['pageid'])
       page_list[i]['snippet']=json_data["query"]["search"][i]["snippet"]
     hist.append(page_list[0]['title'])  
-    keyboard_buttons=[[page_list[i+1]['title']]] for i in range(ref_num-1)]
-    reply_markup = ReplyKeyboardMarkup(keyboard_buttons.append(['/back']),resize_keyboard=True)
+    keyboard_buttons=[[page_list[i+1]['title']] for i in range(ref_num-1)]
+    reply_markup = ReplyKeyboardMarkup(keyboard_buttons),resize_keyboard=True)
     bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'], reply_markup=reply_markup)
     update.message.reply_text(page_list[0]['url'])
     
