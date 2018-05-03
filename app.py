@@ -28,7 +28,7 @@ def back(bot, update):
     chat_id = update.message.chat_id
     keyboard_buttons=[[hist[i]] for i in range(min(len(hist),10))]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
-    bot.send_message(chat_id=chat_id, text='последние 10 страниц', reply_markup=reply_markup)
+    bot.send_message(chat_id=chat_id, text='история прсмотров', reply_markup=reply_markup)
 
 def echo(bot, update):
     chat_id = update.message.chat_id
@@ -55,7 +55,7 @@ def echo(bot, update):
     hist.append(page_list[0]['title'])  
     keyboard_buttons=[[page_list[i+1]['title']] for i in range(ref_num-1)]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
-    bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'], reply_markup=reply_markup)
+    bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'], reply_markup=reply_markup,parse_mode=ParseMode.HTML)
     update.message.reply_text(page_list[0]['url'])
     
 def error(bot, update, error):
