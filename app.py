@@ -28,12 +28,12 @@ def back(bot, update):
     chat_id = update.message.chat_id
     keyboard_buttons=[[hist[i]] for i in range(min(len(hist),10))]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
-    bot.send_message(chat_id=chat_id, text='история прсмотров', reply_markup=reply_markup)
+    bot.send_message(chat_id=chat_id, text='история просмотра', reply_markup=reply_markup)
 
 def echo(bot, update):
     chat_id = update.message.chat_id
     message_text=update.message.text
-    url_wiki='https://en.wikipedia.org/w/api.php?action=opensearch&search='+message_text+'&limit=1&namespace=0&format=json'
+    url_wiki='https://ru.wikipedia.org/w/api.php?action=opensearch&search='+message_text+'&limit=1&namespace=0&format=json'
     response = requests.get(url_wiki)
     json_data = json.loads(response.text)
     reference_text=json_data[2]
@@ -42,7 +42,7 @@ def echo(bot, update):
     #update.message.reply_text(refrence_url)
     #update.message.reply_text(json_data)
     
-    url_srsearch='https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch='+message_text+'&srwhat=text&continue=&format=json'
+    url_srsearch='https://ru.wikipedia.org/w/api.php?action=query&list=search&srsearch='+message_text+'&srwhat=text&continue=&format=json'
     response = requests.get(url_srsearch)
     json_data = json.loads(response.text)
     #update.message.reply_text('-----------------------------------')
@@ -55,13 +55,13 @@ def echo(bot, update):
     hist.append(page_list[0]['title'])  
     keyboard_buttons=[[page_list[i+1]['title']] for i in range(ref_num-1)]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
-    bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'], reply_markup=reply_markup,parse_mode=ParseMode.HTML)
+    bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'], reply_markup=reply_markup)
     update.message.reply_text(page_list[0]['url'])
     
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
 def get_page_url(page_id):
-    page_url_t='https://en.wikipedia.org/w/api.php?action=query&prop=info&pageids='+str(page_id)+'&inprop=url&format=json'
+    page_url_t='https://ru.wikipedia.org/w/api.php?action=query&prop=info&pageids='+str(page_id)+'&inprop=url&format=json'
     response_t = requests.get(page_url_t)
     json_data_t = json.loads(response_t.text)
     return json_data_t["query"]["pages"][str(page_id)]["fullurl"]
