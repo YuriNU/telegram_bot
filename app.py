@@ -55,7 +55,7 @@ def echo(bot, update):
     url_extract='https://ru.wikipedia.org/w/api.php?action=query&prop=extracts&titles='+page_list[0]['title']+'&explaintext&format=json'
     response = requests.get(url_extract)
     json_data = json.loads(response.text)
-    page_list[0]['snippet']=json_data["query"]["pages"][page_list[i]['pageid']]["extract"]
+    page_list[0]['snippet']=json_data["query"]["pages"][str(page_list[i]['pageid'])]["extract"]
     hist.append(page_list[0]['title'])  
     keyboard_buttons=[[page_list[i+1]['title']] for i in range(ref_num-1)]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
