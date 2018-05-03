@@ -52,14 +52,14 @@ def echo(bot, update):
       page_list.append({'title':json_data["query"]["search"][i]["title"],'pageid':json_data["query"]["search"][i]["pageid"]})
       page_list[i]['url']=get_page_url(page_list[i]['pageid'])
       page_list[i]['snippet']=json_data["query"]["search"][i]["snippet"]
-    url_extract='https://ru.wikipedia.org/w/api.php?action=query&prop=extracts&titles='+page_list[0]['title']+'&explaintext'
+    url_extract='https://ru.wikipedia.org/w/api.php?action=query&prop=extracts&titles='+page_list[0]['title']+'&explaintext&format=json'
     response = requests.get(url_extract)
     json_data = json.loads(response.text)
-    page_list[0]['snippet']=json_data["query"]["pages"]["extract"][:100]
+    page_list[0]['snippet']=json_data["query"]["pages"]["extract"]
     hist.append(page_list[0]['title'])  
     keyboard_buttons=[[page_list[i+1]['title']] for i in range(ref_num-1)]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
-    bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'], reply_markup=reply_markup)
+    bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'][:100], reply_markup=reply_markup)
     update.message.reply_text(page_list[0]['url'])
     
 def error(bot, update, error):
