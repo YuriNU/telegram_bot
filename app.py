@@ -41,7 +41,7 @@ def echo(bot, update):
     #update.message.reply_text(reference_text)
     #update.message.reply_text(refrence_url)
     #update.message.reply_text(json_data)
-    
+                                                   
     url_srsearch='https://ru.wikipedia.org/w/api.php?action=query&list=search&srsearch='+message_text+'&srwhat=text&continue=&format=json'
     response = requests.get(url_srsearch)
     json_data = json.loads(response.text)
@@ -52,6 +52,10 @@ def echo(bot, update):
       page_list.append({'title':json_data["query"]["search"][i]["title"],'pageid':json_data["query"]["search"][i]["pageid"]})
       page_list[i]['url']=get_page_url(page_list[i]['pageid'])
       page_list[i]['snippet']=json_data["query"]["search"][i]["snippet"]
+    url_extract='https://ru.wikipedia.org/w/api.php?action=query&prop=extracts&titles='+page_list[0]['title']+'&explaintext'
+    response = requests.get(url_extract)
+    json_data = json.loads(response.text)
+    page_list[0]['snippet']=json_data["query"]["pages"]["extract"][:100]
     hist.append(page_list[0]['title'])  
     keyboard_buttons=[[page_list[i+1]['title']] for i in range(ref_num-1)]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
