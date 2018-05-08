@@ -26,7 +26,8 @@ def help(bot, update):
 
 def back(bot, update):
     chat_id = update.message.chat_id
-    keyboard_buttons=[[hist[i]] for i in range(min(len(hist),10))]
+    hist_rev=hist.reverse()
+    keyboard_buttons=[[hist_rev[i]] for i in range(min(len(hist_rev),10))]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
     bot.send_message(chat_id=chat_id, text='история просмотра', reply_markup=reply_markup)
 
