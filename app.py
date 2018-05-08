@@ -33,14 +33,6 @@ def back(bot, update):
 def echo(bot, update):
     chat_id = update.message.chat_id
     message_text=update.message.text
-    url_wiki='https://ru.wikipedia.org/w/api.php?action=opensearch&search='+message_text+'&limit=1&namespace=0&format=json'
-    response = requests.get(url_wiki)
-    json_data = json.loads(response.text)
-    reference_text=json_data[2]
-    refrence_url=json_data[3]
-    #update.message.reply_text(reference_text)
-    #update.message.reply_text(refrence_url)
-    #update.message.reply_text(json_data)
                                                    
     url_srsearch='https://ru.wikipedia.org/w/api.php?action=query&list=search&srsearch='+message_text+'&srwhat=text&continue=&format=json'
     response = requests.get(url_srsearch)
@@ -57,7 +49,9 @@ def echo(bot, update):
     json_data = json.loads(response.text)
     extract_keys, extract_values=json_data["query"]["pages"].popitem()
     page_list[0]['snippet']=extract_values["extract"]
-    hist.append(page_list[0]['title'])  
+    hist.append(page_list[0]['title'])
+    if(len(hist)>10):
+      hist.pop(0)
     keyboard_buttons=[[page_list[i+1]['title']] for i in range(ref_num-1)]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
     bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'][:page_list[0]['snippet'].index('.',50)+1], reply_markup=reply_markup)
