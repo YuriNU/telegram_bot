@@ -14,6 +14,7 @@ logger = logging.getLogger(__name__)
 TOKEN = '523900080:AAEKgGT4C7M2V4VQ7uWqP7TAB8HzwQJg-jI'
 
 hist=list()
+histDict=dict()
 
 
 
@@ -27,7 +28,8 @@ def help(bot, update):
 def back(bot, update):
     chat_id = update.message.chat_id
     hist.reverse()
-    keyboard_buttons=[[hist[i]] for i in range(min(len(hist),10))]
+    h = histDict[chat_id].reverse()
+    keyboard_buttons=[[h[i]] for i in range(min(len(h),10))]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
     bot.send_message(chat_id=chat_id, text='история просмотра', reply_markup=reply_markup)
     hist.reverse()
@@ -52,13 +54,22 @@ def echo(bot, update):
     extract_keys, extract_values=json_data["query"]["pages"].popitem()
     page_list[0]['snippet']=extract_values["extract"]
     hist.append(page_list[0]['title'])
+    addHist(chat_id,page_list[0]['title'])
     if(len(hist)>10):
       hist.pop(0)
+    if(len(histDict[chat_id])>10):
+      histDict[chat_id] = histDict[chat_id].pop(0)
     keyboard_buttons=[[page_list[i+1]['title']] for i in range(ref_num-1)]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
     bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'][:page_list[0]['snippet'].index('.',50)+1], reply_markup=reply_markup)
     update.message.reply_text(page_list[0]['url'])
     
+def addHist(ch, url):
+    if ch in histDict:
+       histDict[ch].append(url)
+    else:
+       histDict[ch] = url
+        
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
 def get_page_url(page_id):
