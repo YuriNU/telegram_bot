@@ -27,13 +27,11 @@ def help(bot, update):
 
 def back(bot, update):
     chat_id = update.message.chat_id
-    hist.reverse()
     if chat_id in histDict:
       h = histDict[chat_id]
       keyboard_buttons=[[h[i]] for i in range(min(len(h),10))]
       reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
-      bot.send_message(chat_id=chat_id, text='история просмотра', reply_markup=reply_markup)
-    hist.reverse()
+      bot.send_message(chat_id=chat_id, text='', reply_markup=reply_markup)
 
 def echo(bot, update):
     chat_id = update.message.chat_id
@@ -54,17 +52,15 @@ def echo(bot, update):
     json_data = json.loads(response.text)
     extract_keys, extract_values=json_data["query"]["pages"].popitem()
     page_list[0]['snippet']=extract_values["extract"]
-    hist.append(page_list[0]['title'])
+    
     addHist(chat_id,page_list[0]['title'])
-    if(len(hist)>10):
-      hist.pop(0)
+    
     if(len(histDict[chat_id])>10):
       histDict[chat_id] = histDict[chat_id].pop(0)
     keyboard_buttons=[[page_list[i+1]['title']] for i in range(ref_num-1)]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
     bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'][:page_list[0]['snippet'].index('.',50)+1], reply_markup=reply_markup)
     update.message.reply_text(page_list[0]['url'])
-    update.message.reply_text(len(histDict[chat_id]))
 def addHist(ch, url):
     if ch in histDict:
        histDict[ch].append(url)
