@@ -69,7 +69,7 @@ def addHist(ch, url):
     if ch in histDict:
        histDict[ch].append(url)
     else:
-       histDict[ch] = url
+       histDict[ch] = [url]
         
 def error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"' % (update, error))
