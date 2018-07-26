@@ -28,6 +28,7 @@ def help(bot, update):
 def back(bot, update):
     chat_id = update.message.chat_id
     hist.reverse()
+    histDict[chat_id] = []
     h = histDict[chat_id].reverse()
     keyboard_buttons=[[h[i]] for i in range(min(len(h),10))]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
