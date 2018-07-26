@@ -29,7 +29,7 @@ def back(bot, update):
     chat_id = update.message.chat_id
     hist.reverse()
     if chat_id in histDict:
-      h = histDict[chat_id].reverse()
+      h = histDict[chat_id]
       keyboard_buttons=[[h[i]] for i in range(min(len(h),10))]
       reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
       bot.send_message(chat_id=chat_id, text='история просмотра', reply_markup=reply_markup)
