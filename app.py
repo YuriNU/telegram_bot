@@ -57,7 +57,8 @@ def echo(bot, update):
     
     if(len(histDict[chat_id])>10):
       h = histDict[chat_id]
-      histDict[chat_id] =h.pop(0)
+      h.pop(0)
+      histDict[chat_id] = h
     keyboard_buttons=[[page_list[i+1]['title']] for i in range(ref_num-1)]
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
     bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'][:page_list[0]['snippet'].index('.',50)+1], reply_markup=reply_markup)
