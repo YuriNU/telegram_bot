@@ -64,7 +64,7 @@ def echo(bot, update):
     reply_markup = ReplyKeyboardMarkup(keyboard_buttons,resize_keyboard=True)
     bot.send_message(chat_id=chat_id, text=page_list[0]['snippet'][:page_list[0]['snippet'].index('.',50)+1], reply_markup=reply_markup)
     update.message.reply_text(page_list[0]['url'])
-    
+    update.message.reply_text(len(histDict[chat_id]))
 def addHist(ch, url):
     if ch in histDict:
        histDict[ch].append(url)
